@@ -273,3 +273,40 @@ Exemplo de response usuário comum tentando editar outro usuário - 403
 	"message": "Missing admin permissions"
 }
 ```
+
+<br>
+
+#### 4) Deletar o usuário - DELETE /users/id
+Essa rota só pode ser acessada por usuários administradores. É realizado um soft delete no usuário, alterando a sua propriedade isActive para false.
+
+Caso tudo dê certo, o retorno será um status 204 sem conteúdo.
+
+``
+Exemplo de response sem autorização - 401
+``
+
+```
+{
+	"message": "Missing authorization headers"
+}
+```
+
+``
+Exemplo de response com ID do usuário inválido - 404
+``
+
+```
+{
+	"message": "User not found"
+}
+```
+
+``
+Exemplo de response usuário comum tentando realizar a operação - 403
+``
+
+```
+{
+	"message": "Missing admin permissions"
+}
+```
