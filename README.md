@@ -1,4 +1,12 @@
 # 🏠 API KImóveis
+<h3 align="center">Agendar uma visita a um imóvel nunca foi tão fácil!</h3>
+
+<br>
+
+# 🎲 **Sobre o projeto**
+Essa API foi criada para ser utilizada por imobiliárias, visando gerenciar o agendamento de visitas a imóveis. O usuário poderá criar a sua conta, tendo a possibilidade de ser um administrador ou não, realizando o cadastro de novas visitas, além de informações referentes aos imóveis, como, por exemplo, o endereço e a categoria.
+
+<br>
 
 Para inciar este projeto, é necessário instalar as dependências, que serão utilizadas nos testes. Portanto utilize o comando abaixo para instalar tais dependências:
 
@@ -17,7 +25,22 @@ yarn dev
 
 <br>
 
-# **Sobre os testes**
+# 🦾 **Tecnologias utilizadas**
+- **TypeScript**
+- **NodeJS**
+- **Express**
+- **Express-async-errors**
+- **Jest**
+- **PostgreSQL**
+- **Bcrypt**
+- **Jsonwebtoken**
+- **Class-transformer**
+- **Dotenv**
+- **TypeORM**
+
+<br>
+
+# 🔨 **Sobre os testes**
 
 Essa aplicação possui testes, que serão utilizados para validar, se todas as regras de negócio foram aplicadas de maneira correta.
 
