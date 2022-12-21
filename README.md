@@ -673,3 +673,64 @@ Exemplo de response fora dos dias da semana - 400
 	"message": "Appointment only from Monday to Friday"
 }
 ```
+
+<br>
+
+#### 2) Listar todos os agendamentos de um imóvel - GET /schedules/properties/id
+Essa rota só pode ser acessada por usuários administradores.
+
+``
+Exemplo de response - 200
+``
+
+```
+{
+	"schedules": [
+		{
+			"id": "a7b03b8d-ba64-467a-972a-3e2ba163052c",
+			"date": "2022-02-16",
+			"hour": "11:30:00",
+			"user": {
+				"id": "ed33fa96-8c6e-46da-a294-33145073ac53",
+				"name": "Matheus",
+				"email": "matheus@email.com",
+				"password": "$2b$10$YnvFV/R1LZ.C3K/LfyFng.jleM5KABvN.oDJ/zLvlQVi63L8fp6Bi",
+				"isAdm": true,
+				"isActive": true,
+				"createdAt": "2022-12-13T17:39:52.499Z",
+				"updatedAt": "2022-12-13T17:39:52.499Z"
+			}
+		}
+	]
+}
+```
+
+``
+Exemplo de response sem autorização - 401
+``
+
+```
+{
+	"message": "Missing authorization headers"
+}
+```
+
+``
+Exemplo de response usuário comum tentando realizar a operação - 403
+``
+
+```
+{
+	"message": "Missing admin permissions"
+}
+```
+
+``
+Exemplo de response caso o ID da propriedade seja inválido - 404
+``
+
+```
+{
+	"message": "Property not found"
+}
+```
