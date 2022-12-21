@@ -348,3 +348,109 @@ Exemplo de response com usuário ou senha inválido - 403
 	"message": "Invalid user or password"
 }
 ```
+
+<br>
+
+### Rotas de categoria
+#### 1) Criação de uma categoria - POST /categories
+Essa rota só pode ser acessada por usuários administradores.
+
+``
+Exemplo de body
+``
+
+```
+{
+    "name": "Casa"
+}
+```
+
+``
+Exemplo de response - 201
+``
+
+```
+{
+	"name": "Casa",
+	"id": "7716aca7-2c0d-4d44-ac46-181520ccee69"
+}
+```
+
+``
+Exemplo de response caso a categoria já exista - 409
+``
+
+```
+{
+	"message": "Category already exists"
+}
+```
+
+``
+Exemplo de response sem autorização - 401
+``
+
+```
+{
+	"message": "Missing authorization headers"
+}
+```
+
+``
+Exemplo de response usuário comum tentando realizar a operação - 403
+``
+
+```
+{
+	"message": "Missing admin permissions"
+}
+```
+
+<br>
+
+#### 2) Listar todas as categorias - GET /categories
+Essa rota pode ser acessada sem autenticação.
+
+``
+Exemplo de response - 200
+``
+
+```
+[
+	{
+		"id": "d560c877-083a-45e7-b0df-a55a61db5381",
+		"name": "Apartamento"
+	},
+	{
+		"id": "7716aca7-2c0d-4d44-ac46-181520ccee69",
+		"name": "Casa"
+	}
+]
+```
+
+<br>
+
+#### 3) Listar imóveis pertencentes a uma categoria - GET /categories/id/properties
+Essa rota pode ser acessada sem autenticação.
+
+``
+Exemplo de response - 200
+``
+
+```
+{
+	"id": "d560c877-083a-45e7-b0df-a55a61db5381",
+	"name": "Apartamento",
+	"properties": []
+}
+```
+
+``
+Exemplo de response caso a categoria não exista - 404 
+``
+
+```
+{
+	"message": "Category not found"
+}
+```
