@@ -430,7 +430,7 @@ Exemplo de response - 200
 
 <br>
 
-#### 3) Listar imóveis pertencentes a uma categoria - GET /categories/id/properties
+#### 3) Listar propriedades pertencentes a uma categoria - GET /categories/id/properties
 Essa rota pode ser acessada sem autenticação.
 
 ``
@@ -447,6 +447,99 @@ Exemplo de response - 200
 
 ``
 Exemplo de response caso a categoria não exista - 404 
+``
+
+```
+{
+	"message": "Category not found"
+}
+```
+
+<br>
+
+### Rotas de propriedade
+#### 1) Criação de uma propriedade - POST /properties
+Essa rota só pode ser acessada por usuários administradores.
+
+``
+Exemplo de body
+``
+
+```
+{	
+    "value": 1000000,
+    "size": 350,
+    "address": {
+        "district": "Rua Ali Perto",
+        "zipCode": "18150000",
+        "number": "67",
+        "city": "São Bernardo",
+        "state": "SP"
+    },
+    "categoryId": "791d2ee0-6bc3-4fed-892d-e989b64af2e5"
+}
+```
+
+``
+Exemplo de response - 201
+``
+
+```
+{
+	"value": 1000000,
+	"size": 350,
+	"address": {
+		"id": "0a8535b2-c5f5-44b4-9d27-931ee9072027",
+		"district": "Rua Ali Perto",
+		"zipCode": "18150000",
+		"number": "67",
+		"city": "São Bernardo",
+		"state": "SP"
+	},
+	"category": {
+		"id": "791d2ee0-6bc3-4fed-892d-e989b64af2e5",
+		"name": "Casa de Praia"
+	},
+	"id": "4f46e8c4-4b9b-4a96-8372-77b4405d6ee2",
+	"sold": false,
+	"createdAt": "2022-12-21T15:09:16.033Z",
+	"updatedAt": "2022-12-21T15:09:16.033Z"
+}
+```
+
+
+``
+Exemplo de response sem autorização - 401
+``
+
+```
+{
+	"message": "Missing authorization headers"
+}
+```
+
+``
+Exemplo de response usuário comum tentando realizar a operação - 403
+``
+
+```
+{
+	"message": "Missing admin permissions"
+}
+```
+
+``
+Exemplo de response caso o imóvel possua o campo state maior que 2 digítios e o zipCode maior que 8 digítos - 400
+`` 
+
+```
+{
+	"message": "The field is not a valid"
+}
+```
+
+``
+Exempo de response caso a categoria não exista - 404 
 ``
 
 ```
