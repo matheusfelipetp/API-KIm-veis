@@ -310,3 +310,41 @@ Exemplo de response usuário comum tentando realizar a operação - 403
 	"message": "Missing admin permissions"
 }
 ```
+
+<br>
+
+### Rota de login
+#### 1) Realizar o login na plataforma - POST /login
+
+``
+Exemplo de body
+``
+
+```
+{
+    
+    "email": "matheus@email.com",
+    "password": "1234"
+ 
+}
+```
+
+``
+Exemplo de response - 200
+``
+
+```
+{
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hdGhldXNAZW1haWwuY29tIiwiaWF0IjoxNjcxNjM0NDAwLCJleHAiOjE2NzE3MjA4MDAsInN1YiI6ImVkMzNmYTk2LThjNmUtNDZkYS1hMjk0LTMzMTQ1MDczYWM1MyJ9.p0sl91Sv17_B_CGfRy079Wn4rODEdzDy1Enhn8dWsFo"
+}
+```
+
+``
+Exemplo de response com usuário ou senha inválido - 403
+``
+
+```
+{
+	"message": "Invalid user or password"
+}
+```
