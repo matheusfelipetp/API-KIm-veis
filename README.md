@@ -547,3 +547,129 @@ Exempo de response caso a categoria não exista - 404
 	"message": "Category not found"
 }
 ```
+
+<br>
+
+#### 2) Listar todas as propriedades - GET /properties
+Essa rota pode ser acessada sem autenticação.
+
+``
+Exemplo de response - 200
+``
+
+```
+[
+	{
+		"id": "ef56127d-f7f7-4782-8f4c-4479019706b6",
+		"sold": false,
+		"value": "1000000.00",
+		"size": 350,
+		"createdAt": "2022-12-19T19:53:06.251Z",
+		"updatedAt": "2022-12-19T19:53:06.251Z"
+	},
+	{
+		"id": "b024f4de-d7f8-4d3a-b650-e43dc9c85ada",
+		"sold": false,
+		"value": "1000000.00",
+		"size": 350,
+		"createdAt": "2022-12-19T19:54:19.295Z",
+		"updatedAt": "2022-12-19T19:54:19.295Z"
+	},
+	{
+		"id": "9a19e6b6-b09f-49c9-9d58-e46aa5889a2c",
+		"sold": false,
+		"value": "1000000.00",
+		"size": 350,
+		"createdAt": "2022-12-19T19:57:34.056Z",
+		"updatedAt": "2022-12-19T19:57:34.056Z"
+	}
+]
+```
+
+<br>
+
+### Rotas de agendamento
+#### 1) Criação de um agendamento - POST /schedules
+Só é possível realizar um agendamento em horários comerciais (Seg. à Sex. das 08h às 18h).
+
+``
+Exemplo de body
+``
+
+```
+{
+	"date": "2022/8/16",
+	"hour": "12:30",
+	"propertyId": "4f46e8c4-4b9b-4a96-8372-77b4405d6ee2"
+}
+```
+
+``
+Exemplo de response - 201
+``
+
+```
+{
+	"date": "2022/8/16",
+	"hour": "12:30",
+	"property": {
+		"id": "dd2fe2c6-9959-456e-a5f1-1712d66df801",
+		"sold": false,
+		"value": "1000000.00",
+		"size": 350,
+		"createdAt": "2022-12-19T21:24:45.785Z",
+		"updatedAt": "2022-12-19T21:24:45.785Z"
+	},
+	"user": {
+		"id": "ed33fa96-8c6e-46da-a294-33145073ac53",
+		"name": "Matheus",
+		"email": "matheus@email.com",
+		"password": "$2b$10$YnvFV/R1LZ.C3K/LfyFng.jleM5KABvN.oDJ/zLvlQVi63L8fp6Bi",
+		"isAdm": true,
+		"isActive": true,
+		"createdAt": "2022-12-13T17:39:52.499Z",
+		"updatedAt": "2022-12-13T17:39:52.499Z"
+	},
+	"id": "ffdf698d-7bdb-45c4-9ab5-1761fc3f5cdf"
+}
+```
+
+``
+Exemplo de response sem autorização - 401
+``
+
+```
+{
+	"message": "Missing authorization headers"
+}
+```
+
+``
+Exemplo de response de um agendamento que já existe ou em outra propriedade na mesma data e hora - 409
+``
+
+```
+{
+	"message": "There's already a visit scheduled with the same date and hour"
+}
+```
+
+``
+Exemplo de response fora do horário comercial - 400
+`` 
+
+```
+{
+	"message": "Business hours are from 8 am to 6 pm"
+}
+```
+
+``
+Exemplo de response fora dos dias da semana - 400
+``
+
+```
+{
+	"message": "Appointment only from Monday to Friday"
+}
+```
