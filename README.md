@@ -105,3 +105,171 @@ yarn test -t <describe ou test específico envolto em aspas>
 Após rodar um dos comandos aparecerá um log no seu terminal, contendo as informações da execução do teste.
 
 **Observação:** O teste pode demorar alguns segundos para ser finalizado. Quanto maior for o teste, mais tempo será consumido para a execução.
+
+<br>
+
+# ➡️ **Rotas da aplicação**
+### Rotas do usuário
+
+#### 1) Criação do usuário - POST /users
+
+``
+Exemplo de body
+``
+
+```
+{
+    "name": "Matheus",
+    "email": "devmatheus@email.com",
+    "password": "123456",
+    "isAdm": true
+}
+```
+
+``
+Exemplo de response - 201
+`` 
+
+```
+{
+	"name": "Matheus",
+	"email": "devmatheus@email.com",
+	"isAdm": true,
+	"isActive": true,
+	"id": "ce0c381c-ac99-4456-9cd8-e4db932d82a6",
+	"createdAt": "2022-12-21T13:59:06.216Z",
+	"updatedAt": "2022-12-21T13:59:06.216Z"
+}
+```
+
+``
+Exemplo de response com e-mail já existente - 409
+``
+
+```
+{
+	"message": "Email already exists"
+}
+```
+
+<br>
+
+#### 2) Listar todos os usuários - GET /users
+Essa rota só pode ser acessada por usuários administradores.
+
+``
+Exemplo de response - 200
+`` 
+
+```
+[
+	{
+		"id": "ed33fa96-8c6e-46da-a294-33145073ac53",
+		"name": "Matheus",
+		"email": "matheus@email.com",
+		"isAdm": true,
+		"isActive": true,
+		"createdAt": "2022-12-13T17:39:52.499Z",
+		"updatedAt": "2022-12-13T17:39:52.499Z"
+	},
+  {
+		"id": "b17019b3-fcb2-417f-8c9c-d5d67bb2a39b",
+		"name": "Carlos",
+		"email": "carlos@email.com",
+		"isAdm": true,
+		"isActive": true,
+		"createdAt": "2022-12-13T17:40:58.952Z",
+		"updatedAt": "2022-12-13T20:29:49.624Z"
+	},
+  {
+		"id": "35fdae1a-9162-4436-a835-3e5103e09b7c",
+		"name": "Shayany Brasil",
+		"email": "shay@email.com",
+		"isAdm": false,
+		"isActive": true,
+		"createdAt": "2022-12-13T20:24:43.403Z",
+		"updatedAt": "2022-12-13T20:40:43.291Z"
+	}
+]
+```
+
+``
+Exemplo de response caso o usuário não seja administrador - 401
+`` 
+```
+{
+	"message": "Invalid Token"
+}
+```
+
+<br>
+
+#### 3) Editar o usuário - PATCH /users/id
+O usuário administrador poderá editar qualquer outro usuário da plataforma. Já o usuário comum, só poderá editar a si próprio.
+
+``
+Exemplo de body
+``
+
+```
+{
+    "name": "Matheus Felipe",
+    "email": "matheusfelipe123@email.com"
+}
+```
+
+``
+Exemplo de response - 200
+``
+
+```
+{
+	"id": "946c67c2-7746-447e-98eb-6ad59e5e1b95",
+	"name": "Matheus Felipe",
+	"email": "matheusfelipe123@email.com",
+	"isAdm": false,
+	"isActive": true,
+	"createdAt": "2022-12-21T14:10:36.359Z",
+	"updatedAt": "2022-12-21T14:13:33.064Z"
+}
+```
+
+``
+Exemplo de response sem autorização - 401
+``
+
+```
+{
+	"message": "Missing authorization headers"
+}
+```
+
+``
+Exemplo de response com ID do usuário inválido - 404
+``
+
+```
+{
+	"message": "User not found"
+}
+```
+
+``
+Exemplo de response tentando alterar o campo de administrador - 401
+``
+
+```
+{
+	"message": "Unable to change fields"
+}
+```
+
+``
+Exemplo de response usuário comum tentando editar outro usuário - 403
+``
+
+```
+{
+	"message": "Missing admin permissions"
+}
+```
